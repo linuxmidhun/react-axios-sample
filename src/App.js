@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import StudentEdit from './components/StudentEdit';
 import StudentList from './components/StudentList';
 import StudentAdd from './components/StudentAdd';
 
@@ -10,8 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' Component={StudentList} />
-          <Route path='/student/:id' Component={StudentEdit} />
-          <Route path='/new' Component={StudentAdd} />
+          <Route path='/new' element={<StudentAdd data={{ id: 0, name: '', grade: '' }} method="post" />} />
         </Routes>
       </BrowserRouter>
     </div>
