@@ -1,8 +1,11 @@
-import { TableBody, TableCell, TableContainer, TableHead, Table, TableRow, Typography, Paper, Button, ButtonGroup } from '@mui/material'
+import { TableBody, TableCell, TableContainer, TableHead, Table, TableRow, Typography, Paper, Button, ButtonGroup, Grid, Box } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import StudentAdd from './StudentAdd';
 import { useNavigate } from 'react-router-dom'
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 const StudentList = () => {
     let navigate = useNavigate();
@@ -41,45 +44,54 @@ const StudentList = () => {
         <div>
             {update ?
                 <StudentAdd data={student} method="put" /> :
-                <div>
-                    <Typography variant='h2' color='success'>Students</Typography>
-                    <Button variant='contained' color='secondary' onClick={()=> newItem()}> + New Student</Button>
-                    <hr />
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ID </TableCell>
-                                    <TableCell>Name </TableCell>
-                                    <TableCell>Grade </TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {students.map((value, index) => {
-                                    return <TableRow key={index}>
-                                        <TableCell>{value.id}</TableCell>
-                                        <TableCell>{value.name}</TableCell>
-                                        <TableCell>{value.grade}</TableCell>
-                                        <TableCell>
-                                            <ButtonGroup>
-                                                <Button variant='contained' color='success'
-                                                    onClick={() => editItem(value)}>
-                                                    {/* <Link to={{ pathname: `/student/${value.id}` }}
-                                                state={{ id: value.id }}>Edit</Link> */}
-                                                    Edit
-                                                </Button>
-                                                <Button variant='contained' color='error'
-                                                    onClick={() => deleteItem(value.id)}
-                                                >Delete</Button>
-                                            </ButtonGroup>
-                                        </TableCell>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Box sx={{ minWidth: 275, maxWidth: 700 }}>
+                        <Typography variant='h3' color='success'>Students&nbsp;&nbsp;
+                            <Button variant='contained' color='secondary'
+                                onClick={() => newItem()}> <AddCircleOutlineOutlinedIcon />&nbsp;&nbsp;New Student</Button>
+                        </Typography>
+                        <br />
+                        <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                                <TableHead style={{ backgroundColor: 'whitesmoke' }}>
+                                    <TableRow>
+                                        <TableCell><b>ID</b></TableCell>
+                                        <TableCell><b>Name</b></TableCell>
+                                        <TableCell><b>Grade</b></TableCell>
+                                        <TableCell></TableCell>
                                     </TableRow>
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </div>
+                                </TableHead>
+                                <TableBody style={{ backgroundColor: 'ivory' }}>
+                                    {students.map((value, index) => {
+                                        return <TableRow key={index}>
+                                            <TableCell><b>{value.id}</b></TableCell>
+                                            <TableCell>{value.name}</TableCell>
+                                            <TableCell>{value.grade}</TableCell>
+                                            <TableCell>
+                                                <ButtonGroup>
+                                                    <Button variant='contained' color='info' size="small"
+                                                        onClick={() => editItem(value)}>
+                                                        {/* <Link to={{ pathname: `/student/${value.id}` }}
+                                                state={{ id: value.id }}>Edit</Link> */}
+                                                        <EditOutlinedIcon />
+                                                    </Button>
+                                                    <Button variant='contained' color='error' size="small"
+                                                        onClick={() => deleteItem(value.id)}>
+                                                        <DeleteForeverOutlinedIcon /></Button>
+                                                </ButtonGroup>
+                                            </TableCell>
+                                        </TableRow>
+                                    })}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Box>
+                </Grid>
             }
         </div>
     )

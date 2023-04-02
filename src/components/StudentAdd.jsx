@@ -1,7 +1,9 @@
-import { Button, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, Grid, TextField, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 
 const StudentAdd = (props) => {
     let navigate = useNavigate();
@@ -37,14 +39,29 @@ const StudentAdd = (props) => {
     }
 
     return (
-        <div>
-            <Typography variant='h2'>Add Student</Typography>
-            <Button variant='contained' color='secondary' onClick={() => goBack()}>Back</Button>
-            <hr />
-            <TextField name='name' label='Name' value={student.name} onChange={handleChange} /><br /> <br />
-            <TextField name='grade' label='Grade' value={student.grade} onChange={handleChange} /><br /> <br />
-            <Button onClick={saveData} variant='contained'>Save</Button>
-        </div>
+        <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+        >
+            <Box sx={{ minWidth: 275, width: 400 }}>
+                <Typography variant='h3'>{props.method === "post" ? "Add " : "Edit "}Student&nbsp;&nbsp;
+                    <Button variant='contained'
+                        color='secondary' onClick={() => goBack()}>
+                        <ArrowCircleLeftOutlinedIcon />&nbsp;&nbsp;Back</Button>
+                </Typography>
+                <br />
+                <Card style={{ backgroundColor: 'ivory' }}>
+                    <br /><br />
+                    <TextField name='name' label='Name' value={student.name} onChange={handleChange} /><br /> <br />
+                    <TextField name='grade' label='Grade' value={student.grade} onChange={handleChange} /><br /> <br />
+                    <Button onClick={saveData} variant='contained' color='success'>
+                        <SaveOutlinedIcon />&nbsp;&nbsp;Save</Button>
+                    <br /><br />
+                </Card>
+            </Box>
+        </Grid>
     )
 }
 
